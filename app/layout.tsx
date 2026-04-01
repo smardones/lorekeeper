@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +17,19 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}
+        <Script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js' strategy="beforeInteractive"></Script>
+        <Script id="kofi-widget" strategy="afterInteractive">
+          {`
+            kofiWidgetOverlay.draw('shaunmardones', {
+              'type': 'floating-chat',
+              'floating-chat.donateButton.text': 'Tip Me',
+              'floating-chat.donateButton.background-color': '#00b9fe',
+              'floating-chat.donateButton.text-color': '#fff'
+            });
+          `}
+        </Script>
+      </body>
     </html>
   );
 }

@@ -38,17 +38,25 @@ export default function Home() {
   }, [messages]);
 
   return (
-    <main className="flex flex-col h-screen p-4">
+    <main className="flex flex-col h-screen">
       <CardSearch setInput={setInput} isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-      <h1 className="text-4xl m-auto">Lorekeeper</h1>
-      <h3 className="text-2xl m-auto">
-        Assistance on rulings and card effects for Disney Lorcana
-      </h3>
+      <div className="bg-primary-light p-4 mb-4">
+        <h1 className="text-3xl sm:text-4xl m-auto">Lorekeeper</h1>
+        <h6 className="text-lg text-center sm:text-2xl m-auto max-w-[800px]">
+          Have a question about Lorcana? Ask Lorekeeper!
+        </h6>
+      </div>
       {/* Message list */}
       <div className="flex-1 overflow-y-auto space-y-4 py-4">
         {messages.length === 0 && (
           <p className="text-center text-gray-400 mt-20">
             Send a message to start chatting
+            <span className="hidden md:inline">
+              {" "}(If you don't remember the full name of a card, press Ctrl+K to search and reference cards in your question)
+            </span>
+            <span className="md:hidden">
+              {" "}If you don't remember the full name of a card,click the Cards button to lookup specific cards
+            </span>
           </p>
         )}
 
@@ -60,10 +68,10 @@ export default function Home() {
             }`}
           >
             <div
-              className={`rounded-2xl px-4 py-2 max-w-[80%] text-sm whitespace-pre-wrap ${
+              className={`rounded-2xl px-4 py-2 max-w-[90%] sm:max-w-[80%] text-sm whitespace-pre-wrap ${
                 m.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-900"
+                  ? "bg-primary-light"
+                  : "bg-secondary"
               }`}
             >
               {m.parts.map((part, index) => (
@@ -99,23 +107,31 @@ export default function Home() {
           sendMessage({ text: input });
           setInput("");
         }}
-        className="flex gap-2 pt-2 border-t border-gray-200"
+        className="flex gap-2 pt-2 border-t border-gray-200 bg-primary-light p-4"
       >
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
           disabled={status === "streaming"}
-          className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          className="flex-1 rounded-xl border border-gray-300 px-4 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
         />
+        <button
+          type="button"
+          onClick={() => setIsSearchOpen(true)}
+          className="md:hidden bg-accent text-white rounded-xl px-3 py-2 text-xs sm:text-sm font-medium hover:bg-blue-700 transition-colors"
+        >
+          Cards
+        </button>
         <button
           type="submit"
           disabled={status === "streaming" || !input.trim()}
-          className="bg-blue-600 text-white rounded-xl px-4 py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          className="bg-accent text-white rounded-xl px-4 py-2 text-xs sm:text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
         >
           Send
         </button>
       </form>
+      <footer className="h-[70px]" />
     </main>
   );
 }

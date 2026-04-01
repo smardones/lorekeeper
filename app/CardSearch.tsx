@@ -59,14 +59,14 @@ export default function CardSearch({
 
 
   return (
-    <div className="fixed inset-0 bg-primary bg-opacity-10 z-50 flex justify-center items-start pt-20">
-      <div className="bg-gray-800 rounded-lg shadow-lg p-4 pb-0 w-full max-w-md relative">
+    <div className="fixed inset-0 bg-primary bg-opacity-10 z-50 flex justify-center items-start pt-10 sm:pt-20">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-4 pb-0 w-full max-w-md relative mx-2">
         <button
           onClick={() => {
             setSearchTerm("");
             onClose();
           }}
-          className="absolute -top-4 -right-6 text-primary p-1 hover:text-white rounded-full bg-accent"
+          className="absolute -top-2 -right-2 sm:-top-4 sm:-right-6 text-primary p-1 hover:text-white rounded-full bg-accent"
         >
           Close
         </button>
@@ -80,7 +80,7 @@ export default function CardSearch({
         />
         <div className="mt-4">
           {loading && <p className="text-gray-400">Loading...</p>}
-          <ul className="space-y-2 overscroll-y-auto max-h-100 overflow-y-auto">
+          <ul className="space-y-2 overscroll-y-auto max-h-80 sm:max-h-100 overflow-y-auto">
             {results.map((card, index) => (
               <li
                 key={index}
