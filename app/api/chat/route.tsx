@@ -1,4 +1,5 @@
 import fetchCardData from "@/app/tools/cardLoader";
+import lookupRules from "@/app/tools/lookupRules";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { convertToModelMessages, streamText, tool, stepCountIs } from "ai"; // vercel sdk for streaming responses
 import z from "zod";
@@ -31,8 +32,17 @@ export async function POST(request: Request) {
           const retunedCardData = await fetchCardData(queryString);
           return retunedCardData;
         },
-        
       }),
+      lookupRules: tool({
+          description: "Fetch appropriate rules from the comprehensive rules document.",
+          inputSchema: z.object({ 
+            queryString: z.string().describe("A query or question that will require understanding of the rules document. This will likely be a question about specific rules or a game scenario in which the user needs to determine the proper resolution of card effect or rule clarifications."),
+          }),
+          execute: async ({ queryString }) => {
+            const returnedRulesData = await lookupRules(queryString);
+            return returnedRulesData;
+          }
+        })
     },
   });
 
