@@ -4,11 +4,11 @@ import { Pinecone, RecordValues } from "@pinecone-database/pinecone";
 
 const lookupRules = async (queryString: string) => {
     const googleGenerativeAI = createGoogleGenerativeAI({
-        apiKey: 'AIzaSyCxSAgQrOgP--QQrEbCkqraJwmD6p37M5I',
+        apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || "xxxx",
       });
     const pinecone = new Pinecone({
     apiKey:
-      "pcsk_6Dz6of_589DQokVX3WsAFxWKbsi3W68deNuAwNeapSAktNajsq1sFvfspgajyDnpZbury3",
+      process.env.PINECONE_API_KEY || "xxxx",
   });
   const index = pinecone.index({ name: "lorcana-rules" });
   

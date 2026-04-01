@@ -47,7 +47,7 @@ export default function Home() {
         </h6>
       </div>
       {/* Message list */}
-      <div className="flex-1 overflow-y-auto space-y-4 py-4">
+      <div className="flex-1 overflow-y-auto space-y-4 p-4">
         {messages.length === 0 && (
           <p className="text-center text-gray-400 mt-20">
             Send a message to start chatting
